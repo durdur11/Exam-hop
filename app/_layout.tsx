@@ -1,9 +1,43 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { ThemeProvider } from '@react-navigation/native';
+import { useContext, useState, createContext } from 'react';
+import { darkStyles, lightStyles } from '@/styling/styles';
+import SettingsScreen from './settings';
+import HomeScreen from '@/app-example/app/(tabs)';
+import * as NavigationBar from 'expo-navigation-bar';
+import { useEffect } from 'react';
+
+type ThemeContextType = {
+  isDarkMode: boolean;
+  toggleTheme: () => void;
+};
+
+const ThemeContext = createContext<ThemeContextType>({
+  isDarkMode: false,
+  toggleTheme: () => {}
+});
+
+export const useThemeMode = () => useContext(ThemeContext);
+
 
 export default function TabLayout() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleTheme = () => setIsDarkMode(prev => !prev);
+  useEffect(() => {
+    NavigationBar.setBackgroundColorAsync(isDarkMode ? '#000000' : '#ffffff');
+    NavigationBar.setButtonStyleAsync(isDarkMode ? 'light' : 'dark');
+  }, [isDarkMode]);
   return (
-    <Tabs>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+    <Tabs
+    screenOptions={{
+    headerStyle: isDarkMode? { backgroundColor: 'black' } : { backgroundColor: 'white' },
+    headerTintColor: isDarkMode? '#b9b9b9ff' : '#5e5e5eff',
+    tabBarActiveTintColor: '#3683f7ff',
+    tabBarInactiveTintColor: 'gray',
+    tabBarStyle: isDarkMode? { backgroundColor: 'black' } : { backgroundColor: 'white' }
+    }}>
       <Tabs.Screen
         name="index"
         options={{ 
@@ -41,5 +75,6 @@ export default function TabLayout() {
           href: null }}
       />
     </Tabs>
+    </ThemeContext.Provider>
   );
 }
