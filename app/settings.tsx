@@ -1,9 +1,9 @@
 import { View, Text, ScrollView, Switch } from 'react-native';
 import { useState, useContext } from 'react';
 import { ThemeContext } from '@react-navigation/native';
-import { darkStyles, lightStyles } from '@/styling/styles';
+import { darkStyles, lightStyles } from '../styling/styles';
 import { useThemeMode } from './_layout';
-import SwipeDetect from '@/components/SwipeDetect';
+import SwipeDetect from '../components/SwipeDetect';
 import { router } from 'expo-router';
 
 export default function SettingsScreen(props: any) {
@@ -11,7 +11,7 @@ export default function SettingsScreen(props: any) {
   return (
     <SwipeDetect SwipeLeft={() => router.push('/')} SwipeRight={() => router.push('/profile')}>
     <ScrollView style={isDarkMode? darkStyles.scrollContainer : lightStyles.container}>
-      <View style={isDarkMode? darkStyles.container : lightStyles.container}>
+      <View style={[isDarkMode? darkStyles.container : lightStyles.container, {paddingRight: 20}]}>
         <Text style={isDarkMode? darkStyles.text : lightStyles.text}>
           Color mode
         </Text>

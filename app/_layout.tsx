@@ -1,10 +1,10 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemeProvider } from '@react-navigation/native';
-import { useContext, useState, createContext } from 'react';
-import { darkStyles, lightStyles } from '@/styling/styles';
+import { useContext, useState, createContext, useMemo } from 'react';
+import { darkStyles, lightStyles } from '../styling/styles';
+import SwipeDetect from '../components/SwipeDetect';
 import SettingsScreen from './settings';
-import HomeScreen from '@/app-example/app/(tabs)';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useEffect } from 'react';
 
@@ -24,12 +24,13 @@ export const useThemeMode = () => useContext(ThemeContext);
 export default function TabLayout() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleTheme = () => setIsDarkMode(prev => !prev);
+  const contextValue = useMemo(() => ({ isDarkMode, toggleTheme }), [isDarkMode]);
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync(isDarkMode ? '#000000' : '#ffffff');
     NavigationBar.setButtonStyleAsync(isDarkMode ? 'light' : 'dark');
   }, [isDarkMode]);
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
     <Tabs
     screenOptions={{
     headerStyle: isDarkMode? { backgroundColor: 'black' } : { backgroundColor: 'white' },
@@ -63,7 +64,7 @@ export default function TabLayout() {
           tabBarIcon: ({color, size}) => (<Ionicons name="cog-outline" color={color} size={size+5}/>)}}
       />
       <Tabs.Screen
-        name="custom_quiz"
+        name="customQuiz"
         options={{ 
           title: 'Custom quiz', 
           href: null }}
@@ -73,6 +74,16 @@ export default function TabLayout() {
         options={{ 
           title: 'Mistakes', 
           href: null }}
+      />
+      <Tabs.Screen
+      name="signUp"
+      options={{ 
+        href: null }}
+      />
+      <Tabs.Screen
+      name="logIn"
+      options={{ 
+        href: null }}
       />
     </Tabs>
     </ThemeContext.Provider>

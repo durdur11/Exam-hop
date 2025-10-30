@@ -17,6 +17,7 @@ export default function SwipeDetect({
 
   const handleTouchStart = (e: GestureResponderEvent) => {
     swipeStartX.current = e.nativeEvent.pageX;
+    swipeEndX.current = swipeStartX.current;
     console.log("Swipe started:", swipeStartX.current);
   };
 
