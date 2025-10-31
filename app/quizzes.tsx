@@ -4,10 +4,10 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import CustomButton from '../components/Custombutton';
 import SwipeDetect from '../components/SwipeDetect';
 import { darkStyles, lightStyles } from '../styling/styles';
-import { resetStats } from '../utils/stats';
+import { addQuizSummary } from '../utils/stats';
 import { useThemeMode } from './_layout';
 const grammarQuestions = require('../assets/questions/gramatica_clasa4.json');
-const mathQuestions = require('../assets/questions/matematica_clasa4.json');
+const mathQuestions = require('../assets/questions/matematica_cgitggigttglasa4.json');
 
 export default function QuizzesScreen(props: any) {
   const { isDarkMode, toggleTheme } = useThemeMode();
@@ -90,7 +90,9 @@ export default function QuizzesScreen(props: any) {
                 {selectedOptionIdx !== null ? (
                   <CustomButton isDarkMode={isDarkMode} title={currentIndex === 9 ? 'Finish Quiz' : 'Next Question'} onPress={async () => {
                     if (currentIndex === 9) {
-                      await resetStats();
+                      const answeredCount = currentIndex + 1; // since one is selected
+                      const unansweredCount = Math.max(0, 10 - answeredCount);
+                      await addQuizSummary(score, unansweredCount);
                       setStarted(false);
                     } else {
                       setCurrentIndex(i => i + 1);
