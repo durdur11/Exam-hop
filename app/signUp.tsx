@@ -15,14 +15,17 @@ export default function signUpScreen() {
     birthday_d: '',
     birthday_m: '',
     birthday_y: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = () => {
-    console.log('Form data:', formData);
+    if (formData.password !== formData.confirmPassword) {
+
+    }
   };
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
@@ -72,6 +75,17 @@ export default function signUpScreen() {
         onChangeText={text => handleChange('password', text)}
         secureTextEntry
       />
+
+      <Text style={styles.text}>Confirm Password</Text>
+      <TextInput
+        style={styles.input}
+        value={formData.confirmPassword}
+        placeholder="Confirm password"
+        placeholderTextColor={isDarkMode ? '#aaa' : '#555'}
+        onChangeText={text => handleChange('confirmPassword', text)}
+        secureTextEntry
+      />
+
 
       <Text style={styles.text}>Birthday</Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

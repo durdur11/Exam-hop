@@ -18,7 +18,6 @@ export default function SwipeDetect({
   const handleTouchStart = (e: GestureResponderEvent) => {
     swipeStartX.current = e.nativeEvent.pageX;
     swipeEndX.current = swipeStartX.current;
-    console.log("Swipe started:", swipeStartX.current);
   };
 
   const handleTouchMove = (e: GestureResponderEvent) => {
@@ -27,7 +26,6 @@ export default function SwipeDetect({
 
   const handleTouchEnd = () => {
     const deltaX = swipeEndX.current - swipeStartX.current;
-    console.log("Swipe delta:", deltaX);
     if (deltaX > 50) {
       SwipeRight?.();
     } else if (deltaX < -50) {

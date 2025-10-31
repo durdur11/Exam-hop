@@ -11,19 +11,10 @@ export default function LoginScreen() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleLogin = () => {
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-    console.log('Login data:', formData);
   };
 
   const inputStyle = {
@@ -55,18 +46,12 @@ export default function LoginScreen() {
         onChangeText={text => handleChange('password', text)}
       />
 
-      <Text style={styles.text}>Confirm Password</Text>
-      <TextInput
-        style={inputStyle}
-        placeholder="Confirm password"
-        placeholderTextColor={isDarkMode ? '#aaa' : '#555'}
-        secureTextEntry
-        value={formData.confirmPassword}
-        onChangeText={text => handleChange('confirmPassword', text)}
-      />
+
 
       <View style={{ marginTop: 20 }}>
-        <CustomButton title="Login" onPress={handleLogin} />
+        <CustomButton title="Login" onPress={() => {
+          console.log('Login data:', formData);
+        }}/>
       </View>
     </ScrollView>
   );

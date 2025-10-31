@@ -9,7 +9,7 @@ import { router } from 'expo-router';
 export default function SettingsScreen(props: any) {
   const { isDarkMode, toggleTheme } = useThemeMode();
   return (
-    <SwipeDetect SwipeLeft={() => router.push('/')} SwipeRight={() => router.push('/profile')}>
+    <SwipeDetect SwipeLeft={() => router.push('/quizzes')} SwipeRight={() => router.push('/profile')}>
     <ScrollView style={isDarkMode? darkStyles.scrollContainer : lightStyles.container}>
       <View style={[isDarkMode? darkStyles.container : lightStyles.container, {paddingRight: 20}]}>
         <Text style={isDarkMode? darkStyles.text : lightStyles.text}>

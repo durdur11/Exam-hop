@@ -39,12 +39,7 @@ export default function TabLayout() {
     tabBarInactiveTintColor: 'gray',
     tabBarStyle: isDarkMode? { backgroundColor: 'black' } : { backgroundColor: 'white' }
     }}>
-      <Tabs.Screen
-        name="index"
-        options={{ 
-          title: 'Home',
-          tabBarIcon: ({color, size}) => (<Ionicons name="home" color={color} size={size+5}/>)}}
-      />
+ 
       <Tabs.Screen
         name="quizzes"
         options={{ 
